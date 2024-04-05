@@ -31,6 +31,9 @@ class Main {
 
     this.animations = null;
     this.mixer = null;
+
+    this.startTime = 2.0;
+
     this.clock = new THREE.Clock();
 
     this.scene = new THREE.Scene();
@@ -121,17 +124,27 @@ class Main {
     this.scene.add(this.mesh);
   }
 
-  _loadAnimation() {
-    const tlLoadAnimation = gsap.timeline();
+  _loadAnimation() {    
+    const tlToStart = gsap.timeline({
+      onUpdate: () => {
+        this.mixer.update(this.clock.getDelta());
+      }
+    });
+    tlToStart.to(this.mixer, {
+      duration: this.startTime,
+      // ease: 'powwer4.inOut',
+      onComplete: () => {
+        tlLoadAnimation.play();
+      }
+    });
+
+    const tlLoadAnimation = gsap.timeline({ paused: true });
     tlLoadAnimation.to('.js-ttl', {
       opacity: 1,
-      delay: 0.3,
     })
     .to('.js-ttl-txts', {
       y: 0,
-      delay: 0.5,
       duration: 0.6,
-      // ease: 'circ.inOut',
       ease: 'circ.out',
       stagger: 0.03,
       onComplete: () => {
@@ -212,11 +225,13 @@ class Main {
 
       this.animations.forEach(animation => {
         const animationDuration = animation.duration;
-        const animationTime = scrollProgress * animationDuration;
+        const animationTime = scrollProgress * animationDuration + this.startTime;
         
         const action = this.mixer.existingAction(animation);
         action.reset();
         this.mixer.setTime(animationTime); // アニメーションの時間を設定
+
+        // console.log(this.mixer)
       });
       this.renderer.render(this.scene, this.camera);
     });
