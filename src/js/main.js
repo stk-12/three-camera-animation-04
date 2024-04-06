@@ -124,7 +124,8 @@ class Main {
     this.scene.add(this.mesh);
   }
 
-  _loadAnimation() {    
+  _loadAnimation() {  
+    
     const tlToStart = gsap.timeline({
       onUpdate: () => {
         this.mixer.update(this.clock.getDelta());
@@ -132,7 +133,6 @@ class Main {
     });
     tlToStart.to(this.mixer, {
       duration: this.startTime,
-      // ease: 'powwer4.inOut',
       onComplete: () => {
         tlLoadAnimation.play();
       }
