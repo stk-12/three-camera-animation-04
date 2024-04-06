@@ -233,7 +233,7 @@ class Main {
 
       this.animations.forEach(animation => {
         const animationDuration = animation.duration;
-        const animationTime = scrollProgress * animationDuration + this.startTime;
+        const animationTime = scrollProgress * (animationDuration - this.startTime) + this.startTime;
         
         const action = this.mixer.existingAction(animation);
         action.reset();
