@@ -150,6 +150,10 @@ class Main {
       onComplete: () => {
         this.lenis.start();
       }
+    })
+    .to('.js-scroll-line', {
+      opacity: 1,
+      duration: 0.3,
     });
   }
 
@@ -167,6 +171,10 @@ class Main {
       ease: 'circ.inOut',
       y: '-100%',
     })
+    .to('.js-scroll-line', {
+      opacity: 0,
+      duration: 0.3,
+    }, 0)
   }
 
   _init() {
