@@ -133,7 +133,7 @@ class Main {
     });
     tlToStart.to(this.mixer, {
       duration: this.startTime,
-      onComplete: () => {
+      onStart: () => {
         tlLoadAnimation.play();
       }
     });
@@ -141,6 +141,7 @@ class Main {
     const tlLoadAnimation = gsap.timeline({ paused: true });
     tlLoadAnimation.to('.js-ttl', {
       opacity: 1,
+      delay: 1.4,
     })
     .to('.js-ttl-txts', {
       y: 0,
