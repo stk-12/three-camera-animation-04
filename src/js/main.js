@@ -125,10 +125,10 @@ class Main {
   }
 
   _loadAnimation() {  
-    
+    // ロード時のアニメーション
     const tlToStart = gsap.timeline({
       onUpdate: () => {
-        this.mixer.update(this.clock.getDelta());
+        this.mixer.update(this.clock.getDelta()); // startTimeまでのアニメーションを再生
       }
     });
     tlToStart.to(this.mixer, {
@@ -184,9 +184,6 @@ class Main {
     // this._setLight();
     // this._addMesh();
     this._addModel();
-
-    // this._loadAnimation();
-    // this._scrollAnimation();
   }
 
   _update(time) {
